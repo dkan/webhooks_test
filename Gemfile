@@ -5,7 +5,9 @@ gem 'rails', '3.2.13'
 gem 'pg'
 gem 'thin'
 gem 'jquery-rails'
-gem 'easypost'
+gem 'dotenv-rails'
+gem 'easypost', path: '~/Documents/easypost-ruby'
+# gem 'easypost'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

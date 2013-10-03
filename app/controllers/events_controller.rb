@@ -1,25 +1,11 @@
 class EventsController < ApplicationController
 
-  def index
-    @events = Event.all
-  end
-
   def create
+    EasyPost.api_key = ENV['API_KEY']
+    event_hash = ActiveSupport::JSON.decode request.body
+    event = EasyPost::Util.convert_to_easypost_object(event_hash, ENV['API_KEY'])
 
-    event_hash = ActiveSupport::JSON.decode params[:event]
-    event = Event.new(
-      description: event_hash['description'],
-      previous_attributes: event_hash['previous_attributes'],
-      public_id: event_hash['id'],
-      status: event_hash['result']['status']
-    )
-
-    if event.save!
-      render json: {message: 'Event saved...'}, status: 201
-    else
-      render json: {message: 'Event save error.'},  status: 400
-    end
-
+    render json: {message: 'Event created...'}, status: 201
   end
 
 end
